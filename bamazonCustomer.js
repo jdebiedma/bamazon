@@ -81,10 +81,11 @@ function startMe() {
 
 			                	console.log("That will be $" + (res[i].price * result.amount) + ". Thank you for your purchase!");
 
-
+			                	var thisSale = (res[i].price * result.amount);
 			                	var newTotalSales = (res[i].product_sales) + (res[i].price * result.amount);
 			                	var newAmount = (res[i].stock_quantity - result.amount);
 			                	var mySelection = res[i].product_name;
+			                	var myDepartment = res[i].department_name;
 
 				                            connection.query("UPDATE products SET ? WHERE ?", [
 				                                //Update the new stock amount
@@ -99,13 +100,48 @@ function startMe() {
 				                                }
 				                            ], function(err, res) {});
 
+				                connection.query("SELECT * FROM departments", function(err, resuu) {
+            					if (err) throw err;
 
+            						for (var i = 0; i < resuu.length; i++) {
+       
+            							if (resuu[i].department_name === myDepartment) {
+
+
+            								var newDeptSales = resuu[i].total_sales + thisSale;
+
+            								console.log(myDepartment, thisSale, newDeptSales);
+
+	            								connection.query("UPDATE departments SET ? WHERE ?", [
+					                                //Update the new stock amount
+					                                {                   
+					                                    total_sales: newDeptSales
+					                                },
+
+					                                //only for the item that is the one the user chose
+					                                {
+					                                    department_name: myDepartment
+					                                }
+					                            ], function(err, resa) {
+
+					                            	if (err) throw err;
+
+					                            	connection.end();
+					                            });
+
+
+
+            							}
+            							
+            						}
+
+            					});
 				                       	
 
 			                	console.log("Remaining units of " + mySelection + ": " + newAmount);
 
 			                	
-			                	connection.end();
+			                	
 			                	
 			                }
 
