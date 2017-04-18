@@ -34,7 +34,7 @@ function startManager() {
             type: "list",
             name: "option",
             message: "Please select an option.",
-            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"]
           },
 
           ]).then(function(manager) {
@@ -46,7 +46,12 @@ function startManager() {
 
                     console.table(res);
 
+                    startManager();
+
                     });
+
+                    
+
 
                 }
 
@@ -55,9 +60,26 @@ function startManager() {
                     connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(err, res) {
                     if (err) throw err;
 
+                    if (res.length > 0) {
+
                     console.table(res);
 
+                    }
+
+                    else {
+
+                        console.log("");
+                        console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                        console.log("All items have 5 or more units currently.");
+                        console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                        console.log("");
+                    }
+
+                    startManager();
+
                     });
+
+                    
 
                 }
 
@@ -97,10 +119,27 @@ function startManager() {
 
                                     if (result.id === res[i].item_id) {
 
-                                        console.log("You have added "+ result.amount + " more unit(s) of " 
-                                            + res[i].product_name + " to the inventory.");
+                                        var newAmount = (res[i].stock_quantity + result.amount);
+                                        var mySelection = res[i].product_name;
 
-                                        
+                                            connection.query("UPDATE products SET ? WHERE ?", [
+                                                //Update the new stock amount
+                                                {
+                                                    stock_quantity: newAmount
+                                                },
+
+                                                //only for the item that is the one the user chose
+                                                {
+                                                    item_id: result.id
+                                                }
+                                            ], function(err, res) {});
+
+                                        console.log("You have added "+ result.amount + " more unit(s) of " 
+                                            + res[i].product_name + " to the inventory, making the "+mySelection+" total " 
+                                            + newAmount + ".");
+                                        startManager();
+
+
 
                                     }
                                 }    
@@ -108,10 +147,103 @@ function startManager() {
 
                     });
 
+
+                 
+                }
+
+                else if (manager.option === "Add New Product") {
+
+
+
+                    connection.query("SELECT * FROM products", function(err, res) {
+
+                        if (err) throw err;
+
+                        var myNextCount = (res.length + 1);
+
+                     
+
+
+                        prompt.start();
+                                      // 
+                        prompt.get([
+
+                        {
+                          name: 'itemName',
+                          description:'Please enter the name of the item you would like to add to the inventory',
+                          message: 'That is not a valid name.',
+                          type: 'string',
+                          required: true
+                        },
+
+                        {
+                          name: 'dept',
+                          description:'Please enter the department the new item will be found in',
+                          message: 'That is not a valid department name.',
+                          type: 'string',
+                          required: true
+                        },
+
+                        {
+                          name: 'price',
+                          description:'Please enter how much the item will cost',
+                          message: 'That is not a valid number.',
+                          type: 'number',
+                          required: true
+                        },
+
+                        {
+                          name: 'stock',
+                          description:'Please enter how many units of this item will be stocked in the inventory',
+                          message: 'That is not a valid amount.',
+                          type: 'integer',
+                          required: true
+                        },
+
+                      
+                        ], function (err, result) {
+
+                                
+                                console.log("New item added to inventory!");
+
+
+
+
+
+                                connection.query("INSERT INTO products SET ?", {
+                                item_id: myNextCount,    
+                                product_name: result.itemName,
+                                department_name: result.dept,
+                                price: result.price,
+                                stock_quantity: result.stock,
+                            }, function(err, res) {
+
+                                 connection.query("SELECT * FROM products WHERE product_name = ?", 
+                                    result.itemName, function(err, reso) {
+                                    if (err) throw err;
+
+                                    console.table(reso);
+                                    startManager();
+
+                                    });
+
+                            
+                            });
+                        });
+
+                    });    
+
+                   
+
+                }
+
+                else if (manager.option === "Exit") {
+
+                    connection.end();
                 }
   
           });
 
-
+ 
 
 }

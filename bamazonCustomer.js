@@ -31,7 +31,7 @@ function startMe() {
 
             console.log("\n");
 
-            console.log("=-=-=-=-=-=-=-=-= INVENTORY =-=-=-=-=-=-=-=-=" + "\n");
+            console.log("=-=-=-=-=-=-=-=-= CATALOG =-=-=-=-=-=-=-=-=" + "\n");
 
             var inventoryCount = res.length;
 
@@ -75,7 +75,7 @@ function startMe() {
 
 		            	if (result.id === res[i].item_id) {
 
-		                console.log("You requested "+ result.amount + " unit(s) of " + res[i].product_name );
+		                console.log("You requested "+ result.amount + " unit(s) of " + res[i].product_name + ".");
 
 			                if (result.amount < res[i].stock_quantity || result.amount === res[i].stock_quantity) {
 
@@ -104,16 +104,15 @@ function startMe() {
 			                	console.log("Remaining units of " + mySelection + ": " + newAmount);
 
 			                	
-
-			                	startMe();
-
+			                	connection.end();
+			                	
 			                }
 
 			                else {
 
 			                	console.log("We don't have that many in stock! Our apologies.");
 
-			                	startMe();
+			                	connection.end();
 
 			                }
 
