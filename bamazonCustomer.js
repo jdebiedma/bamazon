@@ -110,8 +110,6 @@ function startMe() {
 
             								var newDeptSales = resuu[i].total_sales + thisSale;
 
-            								console.log(myDepartment, thisSale, newDeptSales);
-
 	            								connection.query("UPDATE departments SET ? WHERE ?", [
 					                                //Update the new stock amount
 					                                {                   

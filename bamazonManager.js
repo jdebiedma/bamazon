@@ -3,6 +3,9 @@ var inquirer = require("inquirer");
 var prompt = require("prompt");
 var tabler = require("console.table");
 
+var thisDept;
+var deptArray = [];
+
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -153,87 +156,106 @@ function startManager() {
 
                 else if (manager.option === "Add New Product") {
 
-
-
-                    connection.query("SELECT * FROM products", function(err, res) {
+                    connection.query("SELECT * FROM departments", function(err, res) {
 
                         if (err) throw err;
 
-                        var myNextCount = (res.length + 1);
+                        for (var i = 0; i < res.length; i++) {
 
-                     
+                            deptArray.push(res[i].department_name)  ; 
+                        }
+
+                    
+
+                       
+
+                        inquirer.prompt([
+
+                          {
+                            type: "list",
+                            name: "option",
+                            message: "Please select a department.",
+                            choices: deptArray
+                          },
+
+                          ]).then(function(chooser) {
+
+                                    thisDept = chooser.option;
+                             
+
+                        
+
+                        connection.query("SELECT * FROM products", function(err, res) {
+
+                            if (err) throw err;
+
+                            var myNextCount = (res.length + 1);
 
 
-                        prompt.start();
-                                      // 
-                        prompt.get([
+                            prompt.start();
+                                          // 
+                            prompt.get([
 
-                        {
-                          name: 'itemName',
-                          description:'Please enter the name of the item you would like to add to the inventory',
-                          message: 'That is not a valid name.',
-                          type: 'string',
-                          required: true
-                        },
+                            {
+                              name: 'itemName',
+                              description:'Please enter the name of the product you would like to add to ' + thisDept,
+                              message: 'That is not a valid name.',
+                              type: 'string',
+                              required: true
+                            },
 
-                        {
-                          name: 'dept',
-                          description:'Please enter the department the new item will be found in',
-                          message: 'That is not a valid department name.',
-                          type: 'string',
-                          required: true
-                        },
+                            {
+                              name: 'price',
+                              description:'Please enter how much the item will cost',
+                              message: 'That is not a valid number.',
+                              type: 'number',
+                              required: true
+                            },
 
-                        {
-                          name: 'price',
-                          description:'Please enter how much the item will cost',
-                          message: 'That is not a valid number.',
-                          type: 'number',
-                          required: true
-                        },
+                            {
+                              name: 'stock',
+                              description:'Please enter how many units of this item will be stocked in the inventory',
+                              message: 'That is not a valid amount.',
+                              type: 'integer',
+                              required: true
+                            },
 
-                        {
-                          name: 'stock',
-                          description:'Please enter how many units of this item will be stocked in the inventory',
-                          message: 'That is not a valid amount.',
-                          type: 'integer',
-                          required: true
-                        },
+                          
+                            ], function (err, result) {
 
-                      
-                        ], function (err, result) {
+                                    
+                                    console.log("New item added to inventory!");
+
+
+
+
+
+                                    connection.query("INSERT INTO products SET ?", {
+                                    item_id: myNextCount,    
+                                    product_name: result.itemName,
+                                    department_name: thisDept,
+                                    price: result.price,
+                                    stock_quantity: result.stock,
+                                }, function(err, res) {
+
+                                     connection.query("SELECT * FROM products WHERE product_name = ?", 
+                                        result.itemName, function(err, reso) {
+                                        if (err) throw err;
+
+                                        console.table(reso);
+                                        startManager();
+
+                                        });
 
                                 
-                                console.log("New item added to inventory!");
-
-
-
-
-
-                                connection.query("INSERT INTO products SET ?", {
-                                item_id: myNextCount,    
-                                product_name: result.itemName,
-                                department_name: result.dept,
-                                price: result.price,
-                                stock_quantity: result.stock,
-                            }, function(err, res) {
-
-                                 connection.query("SELECT * FROM products WHERE product_name = ?", 
-                                    result.itemName, function(err, reso) {
-                                    if (err) throw err;
-
-                                    console.table(reso);
-                                    startManager();
-
-                                    });
-
-                            
+                                });
                             });
-                        });
 
-                    });    
+                        });    
 
-                   
+                      });
+
+                    });
 
                 }
 
