@@ -82,14 +82,15 @@ function startMe() {
 			                	console.log("That will be $" + (res[i].price * result.amount) + ". Thank you for your purchase!");
 
 
-
+			                	var newTotalSales = (res[i].product_sales) + (res[i].price * result.amount);
 			                	var newAmount = (res[i].stock_quantity - result.amount);
 			                	var mySelection = res[i].product_name;
 
 				                            connection.query("UPDATE products SET ? WHERE ?", [
 				                                //Update the new stock amount
 				                                {
-				                                    stock_quantity: newAmount
+				                                    stock_quantity: newAmount,
+				                                    product_sales: newTotalSales
 				                                },
 
 				                                //only for the item that is the one the user chose
