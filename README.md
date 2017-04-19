@@ -10,7 +10,7 @@ The program incorporates the [mysql](https://www.npmjs.com/package/mysql), [prom
 
 The Bamazon node app has three separate JavaScript files which run different functions.
 
-### *Customer Function*
+### **Customer Function**
 
 You can use Bamazon from a customer side by typing this into the bash console:
 
@@ -53,7 +53,7 @@ The program will also update a MySQL database with an updated quanity, revenue, 
 	That will be $1199.98. Thank you for your purchase!
 	Remaining units of iPhone: 1
 
-### *Manager Function*
+### **Manager Function**
 
 You can use Bamazon from a manager side by typing this into the bash console:
 
@@ -120,12 +120,58 @@ This will result in a confirmation message and the MySQL database will also be u
 
 
 
-### *Supervisor Function*
+### **Supervisor Function**
 
-You can use Bamazon from a manager side by typing this into the bash console:
+Finally, you can use Bamazon from a supervisor's point of view by typing this into the bash console:
 
-`node  bamazonManager.js`
+`node  bamazonSupervisor.js`
 
 Upon doing so, you'll be give a list of options to choose from.
 
+	? Please select an option. (Use arrow keys)
+	> View Products Sales by Department
+	  Create New Department
+	  Exit
 
+
+The **View Products Sales by Department** option displays the total costs, sales, and profits of each department. These are updated whenever a customer makes a purchase.
+
+The "Profit" column is not stored in a database, but rather uses MySQL *aliases* as requested by the greedy shmucks at Bamazo- Err, I mean the project requirements.
+
+	ID  Department   Costs  Sales    Profit
+	--  -----------  -----  -------  ---------
+	1   animals      15000  514.98   -14485.02
+	2   clothing     2000   164.95   -1835.05
+	3   drinks       5000   22.35    -4977.65
+	4   electronics  10000  2415.11  -7584.89
+	5   home         4500   0        -4500
+	6   produce      4000   0        -4000
+	7   sports       3000   44.97    -2955.03
+
+
+The **Create New Department** option allows the user the add a brand new department in which a manager can add products to.
+
+The user will be prompted to type in a department name and overhead costs; the sales and profit will be 0 by default until a customer buys from it.
+
+	prompt: Please enter the name of the department you would like to add:  automobile
+	prompt: Please enter the estimated overhead costs for this department:  11000
+
+Afterwards, a confirmation message will show and the MySQL Database will be updated:
+
+
+	New department added: automobile
+	department_id  department_name  overhead_costs  total_sales
+	-------------  ---------------  --------------  -----------
+	8              automobile       11000           0
+
+![Image of Database](http://i.imgur.com/F4uTKf4.png)
+
+
+
+## Questions/Contact
+
+Thank you for using my program!
+
+If there are any questions or suggestions feel free to email me at juanthefatty@gmail.com .
+
+A video link to me using the file can be found [here.](https://www.youtube.com/watch?v=jsCLinRxmWA&feature=youtu.be) 
