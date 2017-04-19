@@ -88,7 +88,6 @@ For example, adding 3 more units of iPhone:
 
 The MySQL database is subsequently updated: 
 
-[<img src="http://imgur.com/a/TjFAN">](http://google.com.au/)
-
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
 
