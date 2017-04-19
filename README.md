@@ -79,6 +79,7 @@ The **View Low Inventory** option will display only those items that have less t
 	13       Cat           animals          499.99  1               3499.93
 
 The **Add to Inventory** option allows the user to add to the inventory units of whatever product they like.
+
 For example, adding 3 more units of iPhone:
 
 	prompt: Please enter the ID of the item you would like to add inventory for:  2
@@ -87,7 +88,7 @@ For example, adding 3 more units of iPhone:
 
 The MySQL database is subsequently updated: 
 
-![MySQL Database Update](http://imgur.com/a/TjFAN)
+![MySQL Database Update]("http://imgur.com/a/TjFAN")
 
 
 
