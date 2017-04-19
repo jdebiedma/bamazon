@@ -6,9 +6,11 @@ If it comes out well I will include this in my [coding portfolio.](https://float
 
 The program incorporates the [mysql](https://www.npmjs.com/package/mysql), [prompt](https://www.npmjs.com/package/prompt), [inquirer](https://www.npmjs.com/package/inquirer), and [console.table](https://www.npmjs.com/package/console.table) packages.
 
-## *Using Bamazon*
+## **Tutorial**
 
 The Bamazon node app has three separate JavaScript files which run different functions.
+
+A video link to me using the file can be found [here.](https://www.youtube.com/watch?v=jsCLinRxmWA&feature=youtu.be) 
 
 ## **Customer Function**
 
@@ -174,4 +176,3 @@ Thank you for using my program!
 
 If there are any questions or suggestions feel free to email me at juanthefatty@gmail.com .
 
-A video link to me using the file can be found [here.](https://www.youtube.com/watch?v=jsCLinRxmWA&feature=youtu.be) 
