@@ -6,11 +6,11 @@ If it comes out well I will include this in my [coding portfolio.](https://float
 
 The program incorporates the [mysql](https://www.npmjs.com/package/mysql), [prompt](https://www.npmjs.com/package/prompt), [inquirer](https://www.npmjs.com/package/inquirer), and [console.table](https://www.npmjs.com/package/console.table) packages.
 
-## Using Bamazon
+## *Using Bamazon*
 
 The Bamazon node app has three separate JavaScript files which run different functions.
 
-### **Customer Function**
+## **Customer Function**
 
 You can use Bamazon from a customer side by typing this into the bash console:
 
@@ -53,7 +53,7 @@ The program will also update a MySQL database with an updated quanity, revenue, 
 	That will be $1199.98. Thank you for your purchase!
 	Remaining units of iPhone: 1
 
-### **Manager Function**
+## **Manager Function**
 
 You can use Bamazon from a manager side by typing this into the bash console:
 
@@ -120,7 +120,7 @@ This will result in a confirmation message and the MySQL database will also be u
 
 
 
-### **Supervisor Function**
+## **Supervisor Function**
 
 Finally, you can use Bamazon from a supervisor's point of view by typing this into the bash console:
 
