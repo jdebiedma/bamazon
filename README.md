@@ -10,7 +10,7 @@ The program incorporates the [mysql](https://www.npmjs.com/package/mysql), [prom
 
 The Bamazon node app has three separate JavaScript files which run different functions.
 
-### Customer Function
+### *Customer Function*
 
 You can use Bamazon from a customer side by typing this into the bash console:
 
@@ -53,7 +53,7 @@ The program will also update a MySQL database with an updated quanity, revenue, 
 	That will be $1199.98. Thank you for your purchase!
 	Remaining units of iPhone: 1
 
-### Manager Function
+### *Manager Function*
 
 You can use Bamazon from a manager side by typing this into the bash console:
 
@@ -120,6 +120,12 @@ This will result in a confirmation message and the MySQL database will also be u
 
 
 
+### *Supervisor Function*
 
+You can use Bamazon from a manager side by typing this into the bash console:
+
+`node  bamazonManager.js`
+
+Upon doing so, you'll be give a list of options to choose from.
 
 
