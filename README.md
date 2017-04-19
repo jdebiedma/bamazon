@@ -88,6 +88,38 @@ For example, adding 3 more units of iPhone:
 
 The MySQL database is subsequently updated: 
 
-![Image of Yaktocat](http://i.imgur.com/YOOFkIE.png)
+![Image of Database](http://i.imgur.com/NlDu9YQ.png)
+
+The **Add New Product** option allows the user to introduce a new product to the catalog. The program will prompt the user to select an existing department, type in a product name, price, and stock quantity.
+
+For example, adding "Coffee" to the "drinks" department:
+
+	? Please select a department.
+	  animals
+	  clothing
+	> drinks
+	  electronics
+	  home
+	  produce
+	  sports
+
+And then answering the prompts:
+
+	prompt: Please enter the name of the product you would like to add to drinks:  Coffee
+	prompt: Please enter how much the item will cost:  2.99
+	prompt: Please enter how many units of this item will be stocked in the inventory:  65
+
+This will result in a confirmation message and the MySQL database will also be updated:
+
+	New item added to inventory!
+	item_id  product_name  department_name  price  stock_quantity  product_sales
+	-------  ------------  ---------------  -----  --------------  -------------
+	19       Coffee        drinks           2.99   65              0
+
+![Image of Database](http://i.imgur.com/ZHts7Pr.png)
+
+
+
+
 
 
