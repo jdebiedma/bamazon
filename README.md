@@ -43,8 +43,51 @@ Upon doing so, you'll see the entire store's catalog presented to you in table f
 
 
 
+You'll then be promoted to enter the ID of the item you want to buy and the quantity you desire. When you do so, the program will display a confirmation message.
+The program will also update a MySQL database with an updated quanity, revenue, and total sales for whatever department you bought from.
 
 
+	prompt: Please enter an item ID:  2
+	prompt: How many units would you like to purchase?:  2
+	You requested 2 unit(s) of iPhone.
+	That will be $1199.98. Thank you for your purchase!
+	Remaining units of iPhone: 1
+
+### Manager Function
+
+You can use Bamazon from a manager side by typing this into the bash console:
+
+`node  bamazonManager.js`
+
+Upon doing so, you'll be give a list of options to choose from.
+
+	
+	> View Products for Sale
+	  View Low Inventory
+	  Add to Inventory
+	  Add New Product
+	  Exit
+
+The **View Products for Sale** option will display the inventory of all available products, their sales, and their associated department.
+
+The **View Low Inventory** option will display only those items that have less than 5 units in their stock. 
+
+	? Please select an option. View Low Inventory
+	item_id  product_name  department_name  price   stock_quantity  product_sales
+	-------  ------------  ---------------  ------  --------------  -------------
+	2        iPhone        electronics      599.99  1               5399.91
+	13       Cat           animals          499.99  1               3499.93
+
+The **Add to Inventory** option allows the user to add to the inventory units of whatever product they like.
+For example, adding 3 more units of iPhone:
+
+	prompt: Please enter the ID of the item you would like to add inventory for:  2
+	prompt: Please enter the amount of units you are adding to this inventory:  3
+	You have added 3 more unit(s) of iPhone to the inventory, making the iPhone total 4.
+
+The MySQL database is subsequently updated: 
+
+![MySQL Database Update](http://imgur.com/a/TjFAN)
 
 
 
